@@ -49,6 +49,7 @@ serialport.list(function(err,ports){
 
     console.log(port.comName)
     if(port.comName.indexOf('usbmodem') !== -1){
+      console.log('found... setting sp object to ' + port.comName)
       sp = new SerialPort(port.comName)
     }
 
