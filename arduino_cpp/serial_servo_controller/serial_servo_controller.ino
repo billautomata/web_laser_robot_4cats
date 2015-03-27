@@ -18,13 +18,15 @@ void setup()
   servo0.attach(6); 
   servo1.attach(5);
   
+  servo0.write(positionX);
+  servo1.write(positionY);
+    
 } 
  
 void loop() 
 { 
   
-  servo0.write(positionX);
-  servo1.write(positionY);
+
   
 //  char tmp[3];
 //  Serial.readBytesUntil('x', tmp, 3);
@@ -47,8 +49,9 @@ void loop()
   // parse the string for an instruction
   // A,100,50
   
-  
-  delay(100);
+//  delay(10);
+
+
 } 
 void serialEvent() {
   
@@ -60,7 +63,7 @@ void serialEvent() {
     inputString += byt;
   }
 
-  Serial.println(inputString);
+  //Serial.println(inputString);
 
   char *p = const_cast<char*>(inputString.c_str());
   char *str;
@@ -78,6 +81,9 @@ void serialEvent() {
   }
   p = NULL;
   inputString = "";
+  
+  servo0.write(positionX);
+  servo1.write(positionY);
   
 }
 
