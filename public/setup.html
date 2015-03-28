@@ -155,9 +155,9 @@
       console.log(dimension, min_or_max, up_or_down)
 
       if (up_or_down === 'up') {
-        temp_servo_range[dimension + '_' + min_or_max] += 1
+        temp_servo_range[dimension + '_' + min_or_max] += 10
       } else {
-        temp_servo_range[dimension + '_' + min_or_max] -= 1
+        temp_servo_range[dimension + '_' + min_or_max] -= 10
       }
 
       update_visuals()

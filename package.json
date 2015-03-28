@@ -1,8 +1,8 @@
 {
-  "name": "lasertoy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "web_laser_robot_4cats",
+  "version": "0.3.0",
+  "description": "a cat toy",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js"
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "arduino-firmata": "^0.3.2",
     "express": "^4.10.7",
-    "serialport": "^1.4.10",
     "socket.io": "^1.2.1"
   }
 }

@@ -145,7 +145,12 @@
         wander_mode_active = true
         wander_interval = setInterval(function() {
 
-          var range = Math.random() * 2 + 1
+          var range = Math.random() * 16 + 1
+
+          if(Math.random()<0.01){
+            range = 100
+          }
+
           var range_2 = range / 2.0
 
           x_coord += Math.floor((Math.random() * range) - range_2 + 0.5)
