@@ -15,6 +15,8 @@ get_default_range(function(){
   console.log(x_coord,y_coord)
   send_coordinate([x_coord,y_coord])
 
+  window.laser_state = false
+
   var svg = d3.select('svg').attr('height', window.innerHeight * 0.8)
 
   var drag = d3.behavior.drag()
@@ -71,8 +73,42 @@ get_default_range(function(){
     wander_mode()
   })
 
+  d3.select('button#laser_power').on('click', function() {
+
+    window.laser_state = !window.laser_state
+
+    if(window.laser_state){
+      d3.select(this).attr('class', 'btn btn-danger')
+    } else {
+      d3.select(this).attr('class', 'btn btn-default')
+    }
+
+    console.log(window.laser_state)
+    window.socket.emit('laser_power', {laser_state: laser_state})
+
+
+  })
+
+
   var wander_interval
   var wander_mode_active = false
+  var wander_distance = {value: 4}
+
+
+  var slider_w = 128
+  var slider_h = 10
+
+  var slider_wander_distance = new GUId3.Slider()
+  slider_wander_distance.width(slider_w).height(slider_h).connect(wander_distance,'value')
+  slider_wander_distance.scale(d3.scale.linear().domain([1,100]).range([1,30]))
+  slider_wander_distance.label('wander speed')
+  slider_wander_distance.cssClass('sliderspeed')
+  slider_wander_distance.create(d3.select('div#wander_slider').append('svg')
+    // .attr('width','100%').attr('height',slider_h)
+    // .style('width','100%')
+    .attr('viewBox', '0 0 128 '+slider_h)
+    .attr('preserveAspectRatio','xMidYMid'))
+  slider_wander_distance.setValue(wander_distance.value)
 
   function wander_mode() {
 
@@ -87,8 +123,9 @@ get_default_range(function(){
       wander_interval = setInterval(function() {
 
         var sin_multi = 0.0003
-        var max_distance = 10
+        var max_distance = wander_distance.value
         var range = Math.abs(max_distance*Math.sin(Date.now()*sin_multi)) + 1
+        range = max_distance
 
         if(Math.random()<0.01){
           range = 100

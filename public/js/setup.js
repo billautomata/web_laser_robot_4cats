@@ -31,7 +31,7 @@ get_default_range(function(){
       window.socket.emit('new_settings', window.servo_settings)
     })
     slider.width(window.innerWidth*0.5).height(30)
-      .label(e).type('horizontal')
+      .label(e).type('horizontal').cssClass('setup_sliders')
       .connect(window.servo_settings,e)
 
     slider.scale(d3.scale.linear().domain([0,100]).range([1,180]))

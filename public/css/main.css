@@ -3,25 +3,48 @@
    ========================================================================== */
 /* example.css */
 
-.guid3-slider {
+.sliderspeed .guid3-slider {
   fill: rgb(232, 232, 232) !important;
   fill-opacity: 1.0 !important;
   stroke: none !important;
 }
-.guid3-slider-indicator {
-  fill: #b887fd !important;
-  fill-opacity: 0.33 !important;
+.sliderspeed .guid3-slider-indicator {
+  fill: rgb(33,64,255) !important;
+  fill-opacity: 1.0 !important;
   stroke: none !important;
 }
-.guid3-slider-textlabel {
+.sliderspeed .guid3-slider-textlabel {
   fill: black !important;
-  font-family: serif !important;
-  font-size: 12px !important;
+  font-family: Helvetica !important;
+  font-size: 3px !important;
   font-weight: 100 !important;
 }
-.guid3-slider-textvalue {
+.sliderspeed .guid3-slider-textvalue {
   fill: black !important;
-  font-family: cursive !important;
-  font-size: 18px !important;
-  font-weight: 900 !important;
+  font-family: Helvetica !important;
+  font-size: 3px !important;
+  font-weight: 100 !important;
+}
+
+.setup_sliders .guid3-slider {
+  fill: rgb(244, 244, 244) !important;
+  fill-opacity: 1.0 !important;
+  stroke: none !important;
+}
+.setup_sliders .guid3-slider-indicator {
+  fill: green !important;
+  fill-opacity: 0.5 !important;
+  stroke: none !important;
+}
+.setup_sliders .guid3-slider-textlabel {
+  fill: black !important;
+  font-family: Helvetica !important;
+  font-size: 14px !important;
+  font-weight: 100 !important;
+}
+.setup_sliders .guid3-slider-textvalue {
+  fill: black !important;
+  font-family: Helvetica !important;
+  font-size: 24px !important;
+  font-weight: 100 !important;
 }

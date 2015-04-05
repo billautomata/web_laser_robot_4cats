@@ -64,4 +64,17 @@ io.on('connection', function (socket) {
 
   });
 
+  socket.on('laser_power', function(data){
+
+    console.log('laser event' + JSON.stringify(data,null,0))
+
+    if(data.laser_state){
+      arduino.digitalWrite(8,1)
+    } else {
+      arduino.digitalWrite(8,0)
+    }
+
+  })
+
+
 });
