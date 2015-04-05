@@ -1,15 +1,11 @@
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 /* example.css */
-
 .guid3-slider {
-  fill: rgb(232, 232, 232) !important;
+  fill: rgb(232,232,232) !important;
   fill-opacity: 1.0 !important;
   stroke: none !important;
 }
 .guid3-slider-indicator {
-  fill: #b887fd !important;
+  fill: #b887fd  !important;
   fill-opacity: 0.33 !important;
   stroke: none !important;
 }

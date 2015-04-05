@@ -11,13 +11,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title></title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <style>
     body {
       padding-top: 10px;
       padding-bottom: 20px;
+      /*overflow: hidden;*/
     }
   </style>
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -38,42 +39,7 @@
       <div class='clearfix'></div>
 
       <hr class='col-xs-12'>
-      <div class='col-xs-12'>
-        <h4>CALIBRATE THE RANGE OF THE LEFT/RIGHT SERVO</h4>
-        <div class='col-xs-6'>
-          <p>MINIMUM</p>
-          <button id='x_min_down' type="submit" class="btn btn-default">
-            - </button>
-              <span id='x_value_min'></span>
-              <button id='x_min_up' type="button" class="btn btn-default"> + </button>
-        </div>
-        <div class='col-xs-6'>
-          <p>MAXIMUM</p>
-          <button id='x_max_down' type="submit" class="btn btn-default">
-            - </button>
-          <span id='x_value_max'></span>
-          <button id='x_max_up' type="button" class="btn btn-default"> + </button>
-        </div>
-      </div>
-
-      <hr class='col-xs-12'>
-      <div class='col-xs-12'>
-        <h4>CALIBRATE THE RANGE OF THE UP/DOWN SERVO</h4>
-      </div>
-      <div class='clearfix'></div>
-      <div class='col-xs-6'>
-        <p>MINIMUM</p>
-        <button id='y_min_down' type="submit" class="btn btn-default">
-          - </button>
-            <span id='y_value_min'></span>
-            <button id='y_min_up' type="button" class="btn btn-default"> + </button>
-      </div>
-      <div class='col-xs-6'>
-        <p>MAXIMUM</p>
-        <button id='y_max_down' type="submit" class="btn btn-default">
-          - </button>
-            <span id='y_value_max'></span>
-            <button id='y_max_up' type="button" class="btn btn-default"> + </button>
+      <div class='col-xs-12' id='bucket'>
       </div>
 
     </div>
@@ -98,93 +64,38 @@
 
   <script src="js/vendor/bootstrap.min.js"></script>
 
-  <script src="js/main.js"></script>
-
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
   <script>
-    (function(b, o, i, l, e, r) {
-      b.GoogleAnalyticsObject = l;
-      b[l] || (b[l] =
-        function() {
-          (b[l].q = b[l].q || []).push(arguments)
-        });
-      b[l].l = +new Date;
-      e = o.createElement(i);
-      r = o.getElementsByTagName(i)[0];
-      e.src = '//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e, r)
-    }(window, document, 'script', 'ga'));
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
+    // (function(b, o, i, l, e, r) {
+    //   b.GoogleAnalyticsObject = l;
+    //   b[l] || (b[l] =
+    //     function() {
+    //       (b[l].q = b[l].q || []).push(arguments)
+    //     });
+    //   b[l].l = +new Date;
+    //   e = o.createElement(i);
+    //   r = o.getElementsByTagName(i)[0];
+    //   e.src = '//www.google-analytics.com/analytics.js';
+    //   r.parentNode.insertBefore(e, r)
+    // }(window, document, 'script', 'ga'));
+    // ga('create', 'UA-XXXXX-X');
+    // ga('send', 'pageview');
   </script>
 
 
 
   <!-- // <script src="js/settings_manager.js"></script> -->
 
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="js/vendor/d3.v3.min.js"></script>
+  <script src='js/vendor/guid3.min.js'></script>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect(window.location.origin);
-    socket.on('news', function(data) {
-      console.log(data);
-      // socket.emit('my odther event', { my: 'data' });
-    });
   </script>
 
-  <script>
-    var temp_servo_range = window.servo_settings
-    update_visuals()
-
-    var current_servo_position = [
-      Math.floor((window.servo_settings.x_max - window.servo_settings.x_min) * 0.5) + window.servo_settings.x_min,
-      Math.floor((window.servo_settings.y_max - window.servo_settings.y_min) * 0.5) + window.servo_settings.y_min
-    ]
-
-    send_coordinate(current_servo_position)
-
-    d3.selectAll('button').on('click', function(d) {
-      console.log(d3.select(this).attr('id'))
-
-      var id = d3.select(this).attr('id')
-      var dimension = id.split('_')[0]
-      var min_or_max = id.split('_')[1]
-      var up_or_down = id.split('_')[2]
-
-      console.log(dimension, min_or_max, up_or_down)
-
-      if (up_or_down === 'up') {
-        temp_servo_range[dimension + '_' + min_or_max] += 10
-      } else {
-        temp_servo_range[dimension + '_' + min_or_max] -= 10
-      }
-
-      update_visuals()
-      console.log(temp_servo_range)
-
-      // save new servo settings
-      window.localStorage.setItem('servo_settings', JSON.stringify(temp_servo_range))
-
-      // update the current servo position based on the button pressed
-      if (dimension === 'x') {
-        current_servo_position[0] = temp_servo_range[dimension + '_' + min_or_max]
-      } else {
-        current_servo_position[1] = temp_servo_range[dimension + '_' + min_or_max]
-      }
-
-      // send the socket packet to
-      send_coordinate(current_servo_position)
-
-    })
-
-    function update_visuals() {
-      d3.select('span#x_value_min').html(temp_servo_range.x_min)
-      d3.select('span#x_value_max').html(temp_servo_range.x_max)
-      d3.select('span#y_value_min').html(temp_servo_range.y_min)
-      d3.select('span#y_value_max').html(temp_servo_range.y_max)
-    }
-  </script>
+  <script src='js/utils.js'></script>
+  <script src='js/setup.js'></script>
 
 
 </body>
