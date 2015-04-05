@@ -1,12 +1,12 @@
 get_default_range(function(){
 
   var scalex = d3.scale.linear()
-    .domain([0, window.innerWidth])
+    .domain([window.innerWidth,0])
     .range([window.servo_settings.x_min, window.servo_settings.x_max])
     .clamp(true)
 
   var scaley = d3.scale.linear()
-    .domain([0, window.innerHeight])
+    .domain([window.innerHeight,0])
     .range([window.servo_settings.y_min, window.servo_settings.y_max])
     .clamp(true)
 
