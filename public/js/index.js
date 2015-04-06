@@ -1,21 +1,41 @@
 get_default_range(function(){
 
-  var scalex = d3.scale.linear()
-    .domain([window.innerWidth,0])
-    .range([window.servo_settings.x_min, window.servo_settings.x_max])
-    .clamp(true)
+  var x_coord, y_coord
+  var scalex, scaley
 
-  var scaley = d3.scale.linear()
-    .domain([window.innerHeight,0])
-    .range([window.servo_settings.y_min, window.servo_settings.y_max])
-    .clamp(true)
+  console.log(window.servo_settings)
 
-  var x_coord = window.servo_settings.x_min + ((window.servo_settings.x_max - window.servo_settings.x_min) / 2)
-  var y_coord = window.servo_settings.y_min + ((window.servo_settings.y_max - window.servo_settings.y_min) / 2)
-  console.log(x_coord,y_coord)
-  send_coordinate([x_coord,y_coord])
+  if(window.servo_settings.x_invert){
+    scalex = d3.scale.linear()
+      .domain([window.innerWidth,0])
+      .range([window.servo_settings.x_min, window.servo_settings.x_max])
+      .clamp(true)
+  } else {
+    scalex = d3.scale.linear()
+      .domain([window.innerWidth,0])
+      .range([window.servo_settings.x_max, window.servo_settings.x_min])
+      .clamp(true)
+  }
 
-  window.laser_state = false
+  if(window.servo_settings.y_invert){
+    scaley = d3.scale.linear()
+      .domain([window.innerHeight,0])
+      .range([window.servo_settings.y_min, window.servo_settings.y_max])
+      .clamp(true)    
+  } else {
+    scaley = d3.scale.linear()
+      .domain([window.innerHeight,0])
+      .range([window.servo_settings.y_max, window.servo_settings.y_min])
+      .clamp(true)
+  }
+
+  x_coord = window.servo_settings.x_min + ((window.servo_settings.x_max - window.servo_settings.x_min) / 2)
+  y_coord = window.servo_settings.y_min + ((window.servo_settings.y_max - window.servo_settings.y_min) / 2)
+
+  // console.log(x_coord,y_coord)
+  window.send_coordinate([x_coord,y_coord])
+
+  window.laser_state = true
 
   var svg = d3.select('svg').attr('height', window.innerHeight * 0.8)
 

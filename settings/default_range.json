@@ -1,6 +1,8 @@
 {
-  "x_min": 10,
-  "x_max": 75,
-  "y_min": 24,
-  "y_max": 83
+  "x_min": 33,
+  "x_max": 101,
+  "y_min": 54,
+  "y_max": 76,
+  "x_invert": false,
+  "y_invert": true
 }

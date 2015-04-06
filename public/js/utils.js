@@ -1,7 +1,7 @@
 function get_default_range(cb){
+
   window.socket.on('settings_range', function(d){
-    console.log('got settings range')
-    console.log(d)
+    console.log('got servo settings:' + JSON.stringify(d,null,0) )
     window.servo_settings = d
     if(cb !== undefined){
       cb()

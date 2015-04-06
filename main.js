@@ -1,3 +1,7 @@
+const LASER_PIN = 8
+const X_SERVO_PIN = 5
+const Y_SERVO_PIN = 6
+
 var express = require('express')
 var app = express();
 var server = require('http').Server(app);
@@ -13,6 +17,7 @@ var arduino = new ArduinoFirmata();
 arduino.connect()
 
 arduino.on('connect', function(){
+  arduino.digitalWrite(LASER_PIN,1)
   console.log('Connection to arudino completed [Board version: '+arduino.boardVersion +']')
   arduino_connected = true
 });
@@ -56,8 +61,8 @@ io.on('connection', function (socket) {
     console.log('coords',x_angle,y_angle)
 
     if(arduino_connected){
-      arduino.servoWrite(5,x_angle)
-      arduino.servoWrite(6,y_angle)
+      arduino.servoWrite(X_SERVO_PIN,x_angle)
+      arduino.servoWrite(Y_SERVO_PIN,y_angle)
     } else {
       console.log('arduino not connected yet')
     }

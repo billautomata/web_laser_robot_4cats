@@ -3,15 +3,16 @@
 features
 - [x] laser power on/off toggle
 - [x] bounds setup
-  - [ ] invert bounds state
-  - [ ] bounds minimum/max setup limiting
+  - [x] invert bounds state
+  - [ ] bounds minimum/max setup limiting (min scaling past pax)
 - [x] free play
 - [x] wander mode
-  - [ ] wander speed
+  - [x] wander speed
 
-- [ ] document wiring pattern
+- [x] document wiring pattern in the code and README.md
+
 - [ ] testing mode
-  - [ ]
+  - [ ] test cycle pattern
 
 - [ ] combine to single page
 
