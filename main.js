@@ -40,7 +40,7 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function (socket) {
 
   socket.on('send_settings', function(){
-    defaults_range = get_range()
+    var defaults_range = get_range()
     socket.emit('settings_range', defaults_range)
   })
 
@@ -62,12 +62,40 @@ io.on('connection', function (socket) {
 
     if(arduino_connected){
       arduino.servoWrite(X_SERVO_PIN,x_angle)
-      arduino.servoWrite(Y_SERVO_PIN,y_angle)
+      arduino.servoWrite(Y_SERVO_PIN  ,y_angle)
     } else {
       console.log('arduino not connected yet')
     }
 
   });
+
+  socket.on('coords_pct', function (data) {
+
+    console.log(data)
+
+    var r = get_range()
+
+    console.log(r)
+
+    // console.log(data);
+    var x_angle, y_angle
+
+    if(data.length > 0){
+      x_angle = Math.floor((data[0] * (r.x_max - r.x_min)) + r.x_min)
+      y_angle = Math.floor((data[1] * (r.y_max - r.y_min)) + r.y_min)
+    }
+
+    console.log('coords',x_angle,y_angle)
+
+    if(arduino_connected){
+      arduino.servoWrite(X_SERVO_PIN,x_angle)
+      arduino.servoWrite(Y_SERVO_PIN  ,y_angle)
+    } else {
+      console.log('arduino not connected yet')
+    }
+
+  });
+
 
   socket.on('laser_power', function(data){
 

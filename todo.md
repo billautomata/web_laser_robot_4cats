@@ -4,7 +4,7 @@ features
 - [x] laser power on/off toggle
 - [x] bounds setup
   - [x] invert bounds state
-  - [ ] bounds minimum/max setup limiting (min scaling past pax)
+  - [x] bounds minimum/max setup limiting (min scaling past pax)
 - [x] free play
 - [x] wander mode
   - [x] wander speed
